@@ -1,0 +1,5 @@
+Enter an address or postal code to get a summary of the weather:
+<%= form_with url: weather_summaries_path do |form| %>
+  <%= form.text_field :address %>
+  <%= form.submit "submit" %>
+<% end %>
