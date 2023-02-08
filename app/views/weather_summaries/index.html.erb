@@ -1,5 +1,39 @@
 <div>
   <%= link_to 'Back', :back %>
 </div>
-
-<%= @weather_summary %>
+<h2>
+  <%= @address %>
+</h2>
+<div>
+  Cached: <%= @weather_summary_is_from_cache %>
+</div>
+<h3>
+  Current Weather: 
+</h3>
+<div>
+  <span>
+    <% Time.zone = @weather_summary.location.timezone %>
+    <%= Time.zone.now.strftime('%a, %b %e %l:%M %p') %>
+  </span>
+  <%= image_tag @weather_summary.current.condition_icon_url, style: "vertical-align:middle" %>
+  <span>
+    <%= @weather_summary.current.temperature_farenheit %> (F)
+  </span>
+</div>
+<h3>
+  7 Day Forecast: 
+</h3>
+<% @weather_summary.forecast.each do |forecast_day| %>
+<div>
+  <span>
+    <%= Time.at(forecast_day.date_epoch).utc.strftime('%a') %>
+  </span>
+  <%= image_tag forecast_day.condition_icon_url, style: "vertical-align:middle" %>
+  <span>
+    High: <%= forecast_day.max_temperature_farenheit %> (F)
+  </span>
+  <span>
+    Low: <%= forecast_day.min_temperature_farenheit %> (F)
+  </span>
+</div>
+<% end %>
