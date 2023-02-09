@@ -17,6 +17,10 @@ A simple Rails weather app:
 
 ## Setup
 
+**IMPORTANT**: The app requires a `.env` file with valid API keys for the two third party APIs.  For purposes of the assignment, valid keys were provided separately.
+
+Follow the setup instructions below to set up API keys, install requirements, and run the app:
+
 1. Clone this repo
 2. `cd` into the project root
 3. Create a local `.env` file with the required API keys
