@@ -25,7 +25,7 @@ Follow the setup instructions below to set up API keys, install requirements, an
 2. `cd` into the project root
 3. Create a local `.env` file with the required API keys
    1. `mv .env.example .env`
-   2. Replace the placholder text with valid API keys for:
+   2. Replace the placholder text with valid API keys (provided separately) for:
       1. GOOGLE_GEOCODING_API_KEY
       2. WEATHER_API_KEY
 4. Run `bundle install`
