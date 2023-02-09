@@ -8,6 +8,8 @@ class AddressGeocodingService
   end
   
   def geocode_via_google_geocoding_api
+    raise "missing GOOGLE_GEOCODING_API_KEY.  follow README setup instructions to insure .env file contains the proper keys" if api_key_missing?
+
     uri = URI(google_geocoding_api_url_with_query)
     response_json = Net::HTTP.get_response(uri).body
 
@@ -25,5 +27,13 @@ class AddressGeocodingService
       key: ENV["GOOGLE_GEOCODING_API_KEY"]
     }
     base_url + query_params.to_query
+  end
+
+  def api_key
+    @api_key ||= ENV["GOOGLE_GEOCODING_API_KEY"]
+  end
+
+  def api_key_missing?
+    api_key.blank? || (ENV["GOOGLE_GEOCODING_API_KEY"] == "replace-me-with-real-api-key")
   end
 end

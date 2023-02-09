@@ -15,6 +15,7 @@ class WeatherSummaryRetrievalService
   
   def retrieve_weather_summary_via_weather_api
     return cached_weather_summary if cached_weather_summary
+    raise "missing WEATHER_API_KEY.  follow README setup instructions to insure .env file contains the proper keys" if api_key_missing?
 
     uri = URI(weather_api_url_with_query)
     response_json = Net::HTTP.get_response(uri).body
@@ -41,11 +42,19 @@ class WeatherSummaryRetrievalService
     base_url = "http://api.weatherapi.com/v1/forecast.json?"
     query_params = {
       q: postal_code ? postal_code : "#{latitude},#{longitude}",
-      key: ENV["WEATHER_API_KEY"],
+      key: api_key,
       days: 7,
       aqi: "no",
       alerts: "no"
     }
     base_url + query_params.to_query
+  end
+
+  def api_key
+    @api_key ||= ENV["WEATHER_API_KEY"]
+  end
+
+  def api_key_missing?
+    api_key.blank? || (ENV["WEATHER_API_KEY"] == "replace-me-with-real-api-key")
   end
 end
